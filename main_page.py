@@ -1,6 +1,9 @@
 import streamlit as st
+from streamlit_card import card as st_card_2
+
 from components import st_card,colored_headings
 
+st_card_2('Oof this is a card','Lmao',on_click=lambda: print("clicked"))
 st.write("# Models")
 
 
