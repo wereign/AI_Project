@@ -4,7 +4,7 @@ from io import BytesIO
 from PIL import Image
 
 
-
+from cv_inference import inference_box
 
 st.markdown("# About the model")
 
@@ -23,3 +23,5 @@ with st.expander("# About the model"):
 
     st.markdown("## Model Architecture")
     st.image('./media/visualization.jpeg')
+
+inference_box()
