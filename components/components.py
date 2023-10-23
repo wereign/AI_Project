@@ -1,6 +1,6 @@
 import streamlit as st
 
-def st_card(h3_content,content,button_link):
+def st_card(h3_content,content,button_link,button_callback,button_args):
     st.markdown(
         f"""
         <div>
@@ -12,6 +12,7 @@ def st_card(h3_content,content,button_link):
     )   
     
     st.link_button(label="Expand",url=button_link)
+    st.button(key=button_args.model_name,label="Expand2",on_click=button_callback,args=[button_args])
 
 
 def colored_headings(content,heading_level:int=1,color="ffff"):

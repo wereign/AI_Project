@@ -9,7 +9,7 @@ def use_camera():
 
 
 
-def inference_box():
+def inference_box(inference_function):
 
     with st.container():
         if not "use_camera" in st.session_state:
@@ -25,17 +25,21 @@ def inference_box():
 
             if camera_image is not None:
 
-                bytes2file(camera_image,'from_camera.png')
-        
+                final_image = camera_image
+
+                prediction = inference_function(final_image)
+
+                st.markdown(f"Final Prediction: {prediction}")        
 
         uploaded_image = st.file_uploader(label="Upload Image for Classification",
                         type=['png','jpeg'])
         
         if uploaded_image is not None:
 
-            file_name = uploaded_image.name
-            image = Image.open(uploaded_image) # for inference
+            final_image = Image.open(uploaded_image).copy() # for inference
             
-            bytes2file(uploaded_image,file_name=file_name)
-        
-        
+            print(type(final_image))
+
+            prediction = inference_function(final_image)
+
+            st.markdown(f"Final Prediction: {prediction}")
