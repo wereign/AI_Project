@@ -3,7 +3,7 @@ from PIL import Image
 class MNISTPyTorch:
     def __init__(self):
         
-        self.type = 'tabular' # allowed types = "cv" or "tabular"
+        self.type = 'cv' # allowed types = "cv" or "tabular"
         self.model_name = 'MNIST CNN PyTorch'
         self.short_description = "MNIST Classification using convolution in PyTorch"
         self.description = """
@@ -35,7 +35,7 @@ This model can be used in a wide range of applications, including automated mail
 class MNISTPyTorch2:
     def __init__(self):
         
-        self.type = 'tabular' # allowed types = "cv" or "tabular"
+        self.type = 'cv' # allowed types = "cv" or "tabular"
         self.model_name = 'MNIST CNN PyTorch2'
         self.short_description = "MNIST Classification using convolution in PyTorch"
         self.description = """
@@ -67,7 +67,7 @@ This model can be used in a wide range of applications, including automated mail
 class MNISTPyTorch3:
     def __init__(self):
         
-        self.type = 'tabular' # allowed types = "cv" or "tabular"
+        self.type = 'cv' # allowed types = "cv" or "tabular"
         self.model_name = 'MNIST CNN PyTorch3'
         self.short_description = "MNIST Classification using convolution in PyTorch"
         self.description = """

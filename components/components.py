@@ -10,9 +10,9 @@ def st_card(h3_content,content,button_link,button_callback,button_args):
         """,
         unsafe_allow_html=True
     )   
-    
-    st.link_button(label="Expand",url=button_link)
-    st.button(key=button_args.model_name,label="Expand2",on_click=button_callback,args=[button_args])
+
+    st.button(key= button_args, label="Expand",on_click=button_callback,args=button_args)
+
 
 
 def colored_headings(content,heading_level:int=1,color="ffff"):

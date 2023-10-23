@@ -10,28 +10,39 @@ from components.tabular_inference import iris_inference
 from components.components import st_card,colored_headings
 
 
-cv_models = [mnist_pytorch.MNISTPyTorch(),mnist_pytorch.MNISTPyTorch2(),mnist_pytorch.MNISTPyTorch3()]
+models = [mnist_pytorch.MNISTPyTorch(),mnist_pytorch.MNISTPyTorch2(),mnist_pytorch.MNISTPyTorch3()]
 
+
+
+def set_model_page_id(model_id):    
+    st.session_state['page_mode'] = 'model_page'
+    st.session_state['model_id'] = model_id    
+
+def set_page_main():
+     st.session_state['page_mode'] = 'main_page'
 
 
 def main_page():
+    st.session_state['page_mode'] = 'main_page'
+
+
     colored_headings("Computer Vision Models",heading_level=2,color="FF6AC2")
-    columns = st.columns(3)
+    columns = st.columns(len(models))
 
     for i, col in enumerate(columns):
         with col:
-            model = cv_models[i]
+            model = models[i]
             h3_title = model.model_name
             content = model.short_description
             url = "https://www.youtube.com/watch?v=S3IQwuYX_ls"
-            st_card(h3_content=h3_title,content=content,button_link=url,button_callback=model_page,button_args=model)
+            st_card(h3_content=h3_title,content=content,button_link=url,button_callback=set_model_page_id,button_args=[i])
 
 
-def model_page(model_obj):
+def model_page(model_id):
 
-    global page_mode
-    page_mode = 'model_page'
-    print("In Function" ,page_mode)
+    st.button(label=":arrow_backward: Main Page",on_click=set_page_main)
+    model_obj = models[model_id]
+
     st.markdown("# About the model")
 
     with st.expander("Expand"):
@@ -65,13 +76,17 @@ def model_page(model_obj):
 #         st_card(h3_content=h3_title,content=content,button_link=url)
 
 
-page_mode = 'main_page'
+
+if not "page_mode" in st.session_state:
+        st.session_state['page_mode'] = 'main_page'
+    
+    
+if not "model_id" in st.session_state:
+        st.session_state['model_id'] = 0
 
 
-if page_mode == "main_page":
+if st.session_state['page_mode'] == "main_page":
     main_page()
 
-elif page_mode == 'model_page':
-    pass
-
-print(page_mode)
+elif st.session_state['page_mode'] == 'model_page':
+    model_page(st.session_state['model_id'])
