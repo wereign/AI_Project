@@ -1,6 +1,6 @@
 import streamlit as st
 
-def st_card(h3_content,content,button_link,button_callback,button_args):
+def st_card(h3_content,content,button_callback,button_args):
     st.markdown(
         f"""
         <div>
@@ -11,7 +11,7 @@ def st_card(h3_content,content,button_link,button_callback,button_args):
         unsafe_allow_html=True
     )   
 
-    st.button(key= button_args, label="Expand",on_click=button_callback,args=button_args)
+    st.button(key='_'.join([str(i) for i in button_args]), label="Expand",on_click=button_callback,args=button_args)
 
 
 

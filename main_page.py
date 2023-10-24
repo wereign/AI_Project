@@ -1,22 +1,25 @@
 import streamlit as st
 from PIL import Image
+from pathlib import Path
 
 from model import mnist_pytorch
-
+from model import iris_keras
 
 
 from components.cv_inference import inference_box
-from components.tabular_inference import iris_inference
+from components.tabular_inference import tabular_inference
 from components.components import st_card,colored_headings
 
 
-models = [mnist_pytorch.MNISTPyTorch(),mnist_pytorch.MNISTPyTorch2(),mnist_pytorch.MNISTPyTorch3()]
+root_dir = Path.cwd()
+models = {"cv":[mnist_pytorch.MNISTPyTorch(root_dir)],
+          "tabular":[iris_keras.IrisKeras(root_dir)]}
 
 
-
-def set_model_page_id(model_id):    
+def set_model_page_id(model_id,model_type):    
     st.session_state['page_mode'] = 'model_page'
-    st.session_state['model_id'] = model_id    
+    st.session_state['model_id'] = model_id 
+    st.session_state['model_type'] = model_type   
 
 def set_page_main():
      st.session_state['page_mode'] = 'main_page'
@@ -27,21 +30,32 @@ def main_page():
 
 
     colored_headings("Computer Vision Models",heading_level=2,color="FF6AC2")
-    columns = st.columns(len(models))
+    cv_columns = st.columns(len(models['cv']))
 
-    for i, col in enumerate(columns):
+    for i, col in enumerate(cv_columns):
         with col:
-            model = models[i]
+            model = models['cv'][i]
             h3_title = model.model_name
             content = model.short_description
             url = "https://www.youtube.com/watch?v=S3IQwuYX_ls"
-            st_card(h3_content=h3_title,content=content,button_link=url,button_callback=set_model_page_id,button_args=[i])
+            st_card(h3_content=h3_title,content=content,button_callback=set_model_page_id,button_args=[i,'cv'])
+
+    colored_headings("Tabular Models",heading_level=2,color="FF6AC2")
+    cv_columns = st.columns(len(models['tabular']))
+
+    for i, col in enumerate(cv_columns):
+        with col:
+            model = models['tabular'][i]
+            h3_title = model.model_name
+            content = model.short_description
+            url = "https://www.youtube.com/watch?v=S3IQwuYX_ls"
+            st_card(h3_content=h3_title,content=content,button_callback=set_model_page_id,button_args=[i,'tabular'])
 
 
-def model_page(model_id):
+def model_page(model_id,type):
 
     st.button(label=":arrow_backward: Main Page",on_click=set_page_main)
-    model_obj = models[model_id]
+    model_obj = models[type][model_id]
 
     st.markdown("# About the model")
 
@@ -59,21 +73,9 @@ def model_page(model_id):
         inference_box(model_obj.inference)
     
     elif model_obj.type == "tabular":
-        iris_inference()
+        tabular_inference(model_obj.inference)
 
 
-
-# colored_headings("Tabular Models",heading_level=2,color="FF6AC2")
-
-# columns = st.columns(3)
-
-# for i, col in enumerate(columns):
-
-#     with col:
-#         h3_title = f"Model_{i}"
-#         content = f"CV Model_{i}.\nOkay, lets face it. Nothing can come between you and I."
-#         url = "https://www.youtube.com/watch?v=S3IQwuYX_ls"
-#         st_card(h3_content=h3_title,content=content,button_link=url)
 
 
 
@@ -89,4 +91,4 @@ if st.session_state['page_mode'] == "main_page":
     main_page()
 
 elif st.session_state['page_mode'] == 'model_page':
-    model_page(st.session_state['model_id'])
+    model_page(st.session_state['model_id'],st.session_state['model_type'])

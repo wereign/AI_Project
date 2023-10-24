@@ -1,12 +1,9 @@
 import streamlit as st
 
-def submit_button_callback(label_values):
-    print(label_values)
-
-    st.markdown(str(label_values))
 
 
-def iris_inference():
+
+def tabular_inference(inference_function):
 
     labels = ['Sepal Length (cm)',
             "Sepal Width (cm)",
@@ -16,17 +13,20 @@ def iris_inference():
     label_values = []
 
 
-    columns = st.columns(len(labels))
+    with st.form("tabular_inference_form"):
+        columns = st.columns(len(labels))
 
-    for i,label in enumerate(labels):
+        for i,label in enumerate(labels):
+            
+            with columns[i]:
+                label_values.append(st.number_input(label=label,
+                            min_value=0.0, step=0.1))
         
-        with columns[i]:
-            label_values.append(st.number_input(label=label,
-                        min_value=0.0, step=0.1))
+        submitted = st.form_submit_button("Predict Species")
 
-
-    st.button("Predict Species",on_click=submit_button_callback,args=[label_values])
-
+        if submitted:
+            prediction = inference_function(*label_values)
+            st.write(str(prediction))
 
 if __name__ == "__main__":
-    iris_inference()
+    tabular_inference()
