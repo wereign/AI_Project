@@ -1,5 +1,5 @@
 import streamlit as st
-
+from components.components import colored_headings
 
 
 
@@ -26,7 +26,7 @@ def tabular_inference(inference_function):
 
         if submitted:
             prediction = inference_function(*label_values)
-            st.write(str(prediction))
+            colored_headings(str(prediction),heading_level=4,color="A0E9FF")
 
 if __name__ == "__main__":
     tabular_inference()
