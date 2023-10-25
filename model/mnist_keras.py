@@ -26,6 +26,7 @@ class MNISTKeras():
         """
         self.architecture = self.root_dir/ 'media/mnist_keras.png'
         self.cometml_url = "https://www.comet.com/wereign/solar-detection-v2/view/EjM3aobkDhccBouofxikIQtrc/panels"
+        self.model = keras.models.load_model(self.root_dir / 'saved_models/mnist.keras')
 
 
     def inference(self,image):
@@ -35,7 +36,9 @@ class MNISTKeras():
         image = image.astype('float32') / 255.0
         image = image.reshape(-1,28,28,1)
 
-        model = keras.models.load_model(self.root_dir / 'saved_models/mnist.keras')
 
-        predictions = model.predict(image)
-        print(predictions)
+        predictions = self.model.predict(image)
+        class_label = np.argmax(predictions)
+
+        print(class_label)
+        return class_label

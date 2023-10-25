@@ -26,7 +26,7 @@ def inference_box(inference_function):
             if camera_image is not None:
 
                 final_image = camera_image
-
+                    
                 prediction = inference_function(final_image)
 
                 st.markdown(f"Final Prediction: {prediction}")        
