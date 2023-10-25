@@ -4,7 +4,7 @@ from pathlib import Path
 
 from model import mnist_pytorch
 from model import iris_keras
-
+from model import mnist_keras
 
 from components.cv_inference import inference_box
 from components.tabular_inference import tabular_inference
@@ -12,7 +12,7 @@ from components.components import st_card,colored_headings
 
 
 root_dir = Path.cwd()
-models = {"cv":[mnist_pytorch.MNISTPyTorch(root_dir)],
+models = {"cv":[mnist_pytorch.MNISTPyTorch(root_dir),mnist_keras.MNISTKeras(root_dir)],
           "tabular":[iris_keras.IrisKeras(root_dir)]}
 
 
@@ -37,7 +37,6 @@ def main_page():
             model = models['cv'][i]
             h3_title = model.model_name
             content = model.short_description
-            url = "https://www.youtube.com/watch?v=S3IQwuYX_ls"
             st_card(h3_content=h3_title,content=content,button_callback=set_model_page_id,button_args=[i,'cv'])
 
     colored_headings("Tabular Models",heading_level=2,color="FF6AC2")
@@ -48,7 +47,6 @@ def main_page():
             model = models['tabular'][i]
             h3_title = model.model_name
             content = model.short_description
-            url = "https://www.youtube.com/watch?v=S3IQwuYX_ls"
             st_card(h3_content=h3_title,content=content,button_callback=set_model_page_id,button_args=[i,'tabular'])
 
 

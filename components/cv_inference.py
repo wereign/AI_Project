@@ -1,8 +1,8 @@
 from utils import bytes2file
 import streamlit as st
 from PIL import Image
-
-
+import numpy as np
+import cv2
 def use_camera():
     st.session_state['use_camera'] = not st.session_state['use_camera']
     
@@ -35,11 +35,11 @@ def inference_box(inference_function):
                         type=['png','jpeg'])
         
         if uploaded_image is not None:
-
-            final_image = Image.open(uploaded_image).copy() # for inference
             
-            print(type(final_image))
+            final_image = Image.open(uploaded_image).copy() # for inference
+            final_image = np.asarray(final_image)
 
+            print(type(final_image))
             prediction = inference_function(final_image)
 
             st.markdown(f"Final Prediction: {prediction}")
