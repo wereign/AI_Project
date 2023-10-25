@@ -1,6 +1,6 @@
 from utils import bytes2file
 import streamlit as st
-from PIL import Image
+from PIL import Image, ImageOps
 import numpy as np
 import cv2
 def use_camera():
@@ -25,9 +25,17 @@ def inference_box(inference_function):
 
             if camera_image is not None:
 
-                final_image = camera_image
-                    
-                prediction = inference_function(final_image)
+                final_image = Image.open(camera_image).copy() # for inference
+                final_image = final_image.resize((28,28))
+                final_image = ImageOps.grayscale(final_image)
+                final_image = np.asarray(final_image)
+                
+
+                print(type(final_image))
+                print("Final Image Shape:",final_image.shape)
+
+
+                prediction = inference_function(final_image,source='camera')
 
                 st.markdown(f"Final Prediction: {prediction}")        
 
@@ -39,7 +47,6 @@ def inference_box(inference_function):
             final_image = Image.open(uploaded_image).copy() # for inference
             final_image = np.asarray(final_image)
 
-            print(type(final_image))
-            prediction = inference_function(final_image)
+            prediction = inference_function(final_image,source='uploaded')
 
             st.markdown(f"Final Prediction: {prediction}")

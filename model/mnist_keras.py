@@ -11,25 +11,32 @@ class MNISTKeras():
         self.model_name = 'Iris Classification MNIST'
         self.short_description = "MNIST Digit Classification using Keras"
         self.description = """
-                This DNN model, built using Keras, is designed to predict the species of Iris flowers based on their sepal and petal measurements. The model is tailored for multi-class classification, distinguishing between three Iris species: Setosa, Versicolor, and Virginica.
+        ### MNIST Dataset with Keras
 
-                ### Model Architecture
-                The DNN consists of an input layer with four features (sepal length, sepal width, petal length, and petal width), one or more hidden layers with ReLU activation functions, and an output layer with a softmax activation function. The output layer provides probability distributions over the three species classes.
+        The MNIST dataset, when utilized with the Keras deep learning framework, serves as a fundamental benchmark for image classification tasks. It consists of a collection of 28x28 pixel grayscale images, each depicting handwritten digits ranging from 0 to 9. This dataset is widely recognized and used as an introductory step into the field of deep learning and computer vision.
 
-                ### Training
-                Training is performed using a labeled dataset, where the model learns to classify Iris flowers into their respective species. The loss function used for optimization is typically categorical cross-entropy, and the model's weights are updated through backpropagation.
+        ### Model Architecture
 
-                ### Evaluation
-                To assess the model's performance, metrics like accuracy, precision, recall, and F1-score are computed on a separate test dataset. These metrics help measure the model's ability to accurately predict the Iris species.
+        Keras, a high-level neural networks API, provides a user-friendly platform for constructing neural network models for image classification. A typical MNIST model in Keras often starts with convolutional layers that learn features from the images, followed by pooling layers for dimensionality reduction. These are then connected to fully connected layers for making predictions. Keras simplifies model creation by allowing users to easily stack layers with just a few lines of code.
 
-                This DNN model serves as a powerful tool for automating the classification of Iris flowers and is applicable in various fields, such as botany and horticulture.
-        """
+        ### Training
+
+        Training a Keras model on the MNIST dataset involves feeding the network the training data and iteratively adjusting the model's internal parameters through backpropagation to minimize a chosen loss function (commonly cross-entropy). Stochastic gradient descent (SGD) and other optimization techniques are often employed for this purpose. The dataset is typically split into training and validation sets to monitor model performance, preventing overfitting.
+
+        ### Evaluation
+
+        Keras provides various evaluation metrics to assess the model's performance, with accuracy being one of the most commonly used. Confusion matrices and classification reports are often generated to gain deeper insights into the model's classification abilities. The ultimate objective is to achieve high accuracy on the MNIST test dataset, demonstrating the model's proficiency in correctly classifying handwritten digits.
+
+        ### Use Cases
+
+        The MNIST dataset with Keras is an essential stepping stone for deep learning practitioners and researchers. It's used in various applications, including digit recognition in diverse forms and documents, automated sorting of mail, and as a building block in more advanced optical character recognition (OCR) systems. The simplicity and efficiency of Keras make it an ideal choice for exploring image classification tasks, making it accessible for both beginners and experienced machine learning practitioners.  """
+
         self.architecture = self.root_dir/ 'media/mnist_keras.png'
         self.cometml_url = "https://www.comet.com/wereign/solar-detection-v2/view/EjM3aobkDhccBouofxikIQtrc/panels"
         self.model = keras.models.load_model(self.root_dir / 'saved_models/mnist.keras')
 
 
-    def inference(self,image):
+    def inference(self,image,source):
 
         # print(image.shape)
 
@@ -40,5 +47,11 @@ class MNISTKeras():
         predictions = self.model.predict(image)
         class_label = np.argmax(predictions)
 
+        print()
+        print(source)
+        print(predictions)
+        print(predictions.shape)
         print(class_label)
+        print()
+
         return class_label
