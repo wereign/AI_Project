@@ -2,3 +2,5 @@ report_stuff/
 
 __pycache__/
 mnist_images/
+datasets/
+notebooks/data/MNIST/raw/

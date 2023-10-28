@@ -2,13 +2,14 @@ import keras
 import numpy as np
 import pandas as pd
 from pathlib import Path
-from PIL import Image
+from PIL import Image, ImageOps
+
 class MNISTKeras():
 
     def __init__(self,root_dir:Path):
         self.root_dir = root_dir
         self.type = 'cv' # allowed types = "cv" or "tabular"
-        self.model_name = 'Iris Classification MNIST'
+        self.model_name = 'Keras CNN MNIST'
         self.short_description = "MNIST Digit Classification using Keras"
         self.description = """
         ### MNIST Dataset with Keras
@@ -32,14 +33,16 @@ class MNISTKeras():
         The MNIST dataset with Keras is an essential stepping stone for deep learning practitioners and researchers. It's used in various applications, including digit recognition in diverse forms and documents, automated sorting of mail, and as a building block in more advanced optical character recognition (OCR) systems. The simplicity and efficiency of Keras make it an ideal choice for exploring image classification tasks, making it accessible for both beginners and experienced machine learning practitioners.  """
 
         self.architecture = self.root_dir/ 'media/mnist_keras.png'
-        self.cometml_url = "https://www.comet.com/wereign/solar-detection-v2/view/EjM3aobkDhccBouofxikIQtrc/panels"
+        self.cometml_url = "https://www.comet.com/wereign/juan-ai/e1c36b3285bf49b8be5d13b9f16cc300?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=steps"
         self.model = keras.models.load_model(self.root_dir / 'saved_models/mnist.keras')
 
 
-    def inference(self,image,source):
+    def inference(self,image:Image,source):
 
         # print(image.shape)
-
+        image = image.resize((28,28))
+        image = ImageOps.grayscale(image)
+        image = np.asarray(image)
         image = image.astype('float32') / 255.0
         image = image.reshape(-1,28,28,1)
 
