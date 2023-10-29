@@ -28,8 +28,8 @@ class IrisPyTorch():
         """
 
         self.architecture =  self.root_dir / 'media/iris_model_pytorch.png'
-        self.comet_url = "https://www.comet.com/wereign/juan-ai/c58d9fa7e76d4a048d3943b18cc23ca4?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step"
-        self.model = torch.jit.load(self.root_dir / '../saved_models/iris_model_pytorch.pt')
+        self.cometml_url = "https://www.comet.com/wereign/juan-ai/c58d9fa7e76d4a048d3943b18cc23ca4?experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step"
+        self.model = torch.jit.load(self.root_dir / 'saved_models/iris_model_pytorch.pt')
 
 
 

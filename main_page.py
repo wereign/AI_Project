@@ -2,9 +2,7 @@ import streamlit as st
 from PIL import Image
 from pathlib import Path
 
-from model import mnist_pytorch
-from model import iris_keras
-from model import mnist_keras
+from model import mnist_pytorch,iris_keras, mnist_keras,iris_pytorch
 
 from components.cv_inference import inference_box
 from components.tabular_inference import tabular_inference
@@ -13,7 +11,7 @@ from components.components import st_card,colored_headings
 
 root_dir = Path.cwd()
 models = {"cv":[mnist_pytorch.MNISTPyTorch(root_dir),mnist_keras.MNISTKeras(root_dir)],
-          "tabular":[iris_keras.IrisKeras(root_dir)]}
+          "tabular":[iris_keras.IrisKeras(root_dir),iris_pytorch.IrisPyTorch(root_dir)]}
 
 
 def set_model_page_id(model_id,model_type):    
