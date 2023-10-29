@@ -38,7 +38,7 @@ class MNISTPyTorch:
         self.architecture = self.root_dir / 'media/pytorch_mnist_cnn.png'
         self.cometml_url = "https://www.comet.com/wereign/solar-detection-v2/view/EjM3aobkDhccBouofxikIQtrc/panels"
         self.model = torch.jit.load(self.root_dir / 'saved_models/mnist_pytorch.pt')
-
+        self.model.eval()
 
     def inference(self,img:Image,source):
         
