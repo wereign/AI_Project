@@ -55,15 +55,15 @@ def main_page():
             st_card(h3_content=h3_title,content=content,button_callback=set_model_page_id,button_args=[i,'tabular'])
 
 
-    colored_headings("Generative Adversarial Models",heading_level=2,color="FF6AC2")
-    cv_columns = st.columns(len(models['gan']))
+    # colored_headings("Generative Adversarial Models",heading_level=2,color="FF6AC2")
+    # cv_columns = st.columns(len(models['gan']))
 
-    for i, col in enumerate(cv_columns):
-        with col:
-            model = models['gan'][i]
-            h3_title = model.model_name
-            content = model.short_description
-            st_card(h3_content=h3_title,content=content,button_callback=set_model_page_id,button_args=[i,'gan'])
+    # for i, col in enumerate(cv_columns):
+    #     with col:
+    #         model = models['gan'][i]
+    #         h3_title = model.model_name
+    #         content = model.short_description
+    #         st_card(h3_content=h3_title,content=content,button_callback=set_model_page_id,button_args=[i,'gan'])
 
 def model_page(model_id,type):
 
