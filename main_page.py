@@ -17,7 +17,8 @@ from components.components import st_card,colored_headings
 root_dir = Path.cwd()
 models = {"cv":[MNISTPyTorch(root_dir),MNISTKeras(root_dir)],
           "tabular":[IrisKeras(root_dir),IrisPyTorch(root_dir)],
-          "gan":[GANPyTorch(root_dir)]}
+        #   "gan":[GANPyTorch(root_dir)]
+          }
 
 
 def set_model_page_id(model_id,model_type):    
