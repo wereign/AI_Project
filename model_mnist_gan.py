@@ -1,5 +1,4 @@
 import torch
-import cv2
 from torchvision import utils as vutils
 import numpy as np
 from pathlib import Path
