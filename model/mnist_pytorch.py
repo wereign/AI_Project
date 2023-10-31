@@ -1,10 +1,7 @@
 from PIL import Image
 from pathlib import Path
 import torch
-import cv2
 import numpy as np
-
-
 from torchvision import transforms
 
 class MNISTPyTorch:
