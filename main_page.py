@@ -2,7 +2,7 @@ import streamlit as st
 from PIL import Image
 from pathlib import Path
 
-from model import mnist_pytorch,iris_keras, mnist_keras,iris_pytorch
+from model import mnist_pytorch,iris_keras, mnist_keras,iris_pytorch,mnist_gan
 
 from components.cv_inference import inference_box
 from components.tabular_inference import tabular_inference
@@ -11,7 +11,8 @@ from components.components import st_card,colored_headings
 
 root_dir = Path.cwd()
 models = {"cv":[mnist_pytorch.MNISTPyTorch(root_dir),mnist_keras.MNISTKeras(root_dir)],
-          "tabular":[iris_keras.IrisKeras(root_dir),iris_pytorch.IrisPyTorch(root_dir)]}
+          "tabular":[iris_keras.IrisKeras(root_dir),iris_pytorch.IrisPyTorch(root_dir)],
+          "gan":[mnist_gan.GANPyTorch(root_dir)]}
 
 
 def set_model_page_id(model_id,model_type):    
@@ -48,6 +49,16 @@ def main_page():
             st_card(h3_content=h3_title,content=content,button_callback=set_model_page_id,button_args=[i,'tabular'])
 
 
+    colored_headings("Generative Adversarial Models",heading_level=2,color="FF6AC2")
+    cv_columns = st.columns(len(models['gan']))
+
+    for i, col in enumerate(cv_columns):
+        with col:
+            model = models['gan'][i]
+            h3_title = model.model_name
+            content = model.short_description
+            st_card(h3_content=h3_title,content=content,button_callback=set_model_page_id,button_args=[i,'gan'])
+
 def model_page(model_id,type):
 
     st.button(label=":arrow_backward: Main Page",on_click=set_page_main)
@@ -70,6 +81,16 @@ def model_page(model_id,type):
     
     elif model_obj.type == "tabular":
         tabular_inference(model_obj.inference)
+
+    elif model_obj.type == 'gan':
+        st.markdown("## Generate Images")
+        num_images = st.number_input(':orange[Number of Images to generate:]',min_value=1,max_value=80)
+        
+        all_images = model_obj.inference(num_images)
+
+        st.image(all_images,clamp=True)
+
+
 
 
 

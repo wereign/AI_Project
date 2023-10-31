@@ -34,26 +34,30 @@ class GANPyTorch:
             This model can be used in a wide range of applications, including automated mail sorting, digit recognition in forms, and even as a component of more complex optical character recognition (OCR) systems. It serves as a foundational example of image classification with deep learning in the context of computer vision tasks.
 
         """
-        self.architecture = self.root_dir / 'media/pytorch_mnist_cnn.png'
+        self.architecture = self.root_dir / 'media/generator_state_dict.png'
         self.cometml_url = "https://www.comet.com/wereign/solar-detection-v2/view/EjM3aobkDhccBouofxikIQtrc/panels"
-        self.model = torch.jit.load(self.root_dir / 'saved_models/mnist_pytorch.pt')
+        self.model = torch.jit.load(self.root_dir / 'saved_models/generator.pt')
         self.model.eval()
 
+    
 
+    def inference(self,num_images=64):
 
-gpu = True
-CUDA = True and torch.cuda.is_available()
-BATCH_SIZE = 128
-device = device = torch.device("cuda:0" if CUDA else "cpu")
-Z_DIM = 100
-generator = torch.jit.load('./saved_models/generator.pt')
-viz_noise = torch.randn(BATCH_SIZE, Z_DIM, 1, 1, device=device)
-more_fake = generator(viz_noise).detach().cpu()
+        CUDA = True and torch.cuda.is_available()
+        BATCH_SIZE = 128
+        device = device = torch.device("cuda:0" if CUDA else "cpu")
+        Z_DIM = 100
+        
 
-img = vutils.make_grid(more_fake,normalize=True).cpu().permute(1,2,0).numpy() * 255
-img = img.astype(np.uint8)
-print(np.max(img))
-cv2.imwrite('./gan_output.png',img)
-cv2.imshow('generator',img)
-cv2.waitKey(0)
+        viz_noise = torch.randn(BATCH_SIZE, Z_DIM, 1, 1, device=device)
+        more_fake = self.model(viz_noise).detach().cpu()[:num_images]
+ 
+        all_images = [t_img.cpu().permute(1,2,0).numpy() for t_img in more_fake]
+        
+        return all_images
+        
 
+if __name__ == "__main__":
+
+    model = GANPyTorch()
+    model.inference(10)
