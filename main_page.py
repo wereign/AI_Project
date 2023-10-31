@@ -91,11 +91,6 @@ def model_page(model_id,type):
         st.image(all_images,clamp=True)
 
 
-
-
-
-
-
 if not "page_mode" in st.session_state:
         st.session_state['page_mode'] = 'main_page'
     
