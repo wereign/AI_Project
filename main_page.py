@@ -88,13 +88,13 @@ def model_page(model_id,type):
     elif model_obj.type == "tabular":
         tabular_inference(model_obj.inference)
 
-    elif model_obj.type == 'gan':
-        st.markdown("## Generate Images")
-        num_images = st.number_input(':orange[Number of Images to generate:]',min_value=1,max_value=80)
+    # elif model_obj.type == 'gan':
+    #     st.markdown("## Generate Images")
+    #     num_images = st.number_input(':orange[Number of Images to generate:]',min_value=1,max_value=80)
         
-        all_images = model_obj.inference(num_images)
+    #     all_images = model_obj.inference(num_images)
 
-        st.image(all_images,clamp=True)
+    #     st.image(all_images,clamp=True)
 
 
 if not "page_mode" in st.session_state:
