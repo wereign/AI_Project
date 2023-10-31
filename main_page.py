@@ -2,7 +2,12 @@ import streamlit as st
 from PIL import Image
 from pathlib import Path
 
-from .model import mnist_pytorch,iris_keras, mnist_keras,iris_pytorch,mnist_gan
+from model_iris_keras import IrisKeras
+from model_iris_pytorch import IrisPyTorch
+from model_mnist_pytorch import MNISTPyTorch
+from model_mnist_keras import MNISTKeras 
+from model_mnist_gan import GANPyTorch
+
 
 from components.cv_inference import inference_box
 from components.tabular_inference import tabular_inference
@@ -10,9 +15,9 @@ from components.components import st_card,colored_headings
 
 
 root_dir = Path.cwd()
-models = {"cv":[mnist_pytorch.MNISTPyTorch(root_dir),mnist_keras.MNISTKeras(root_dir)],
-          "tabular":[iris_keras.IrisKeras(root_dir),iris_pytorch.IrisPyTorch(root_dir)],
-          "gan":[mnist_gan.GANPyTorch(root_dir)]}
+models = {"cv":[MNISTPyTorch(root_dir),MNISTKeras(root_dir)],
+          "tabular":[IrisKeras(root_dir),IrisPyTorch(root_dir)],
+          "gan":[GANPyTorch(root_dir)]}
 
 
 def set_model_page_id(model_id,model_type):    
