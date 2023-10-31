@@ -2,7 +2,7 @@ import streamlit as st
 from PIL import Image
 from pathlib import Path
 
-from model import mnist_pytorch,iris_keras, mnist_keras,iris_pytorch,mnist_gan
+from .model import mnist_pytorch,iris_keras, mnist_keras,iris_pytorch,mnist_gan
 
 from components.cv_inference import inference_box
 from components.tabular_inference import tabular_inference
