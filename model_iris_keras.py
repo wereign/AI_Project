@@ -30,14 +30,14 @@ class IrisKeras():
         """
         self.architecture = self.root_dir/ 'media/iris_keras.png'
         self.cometml_url = "https://www.comet.com/wereign/solar-detection-v2/view/EjM3aobkDhccBouofxikIQtrc/panels"
+        self.model = model = keras.models.load_model( self.root_dir / 'saved_models/iris_model.keras')
 
 
     def inference(self,sep_len,sep_wid,pet_len,pet_wid):
 
         # Load the Keras model and scaler
-        model = keras.models.load_model( self.root_dir / 'saved_models/iris_model.keras')
         st.write(sep_len,sep_wid,pet_len,pet_wid)
-        st.write(model)
+        st.write(self.model)
         scaler = joblib.load(self.root_dir / "saved_models/iris_keras_scaler.pkl")
 
         species = ["Iris-setosa","Iris-versicolor","Iris-virginica"]
@@ -50,7 +50,7 @@ class IrisKeras():
         ]
         df = pd.DataFrame([[sep_len,sep_wid,pet_len,pet_wid]],columns=column_names)
         x_test = scaler.transform(df)
-        preds = model.predict(x_test)
+        preds = self.model.predict(x_test)
         species_idx = np.argmax(preds,axis=-1).item()
         species_label = species[species_idx]
         print(species_label)
