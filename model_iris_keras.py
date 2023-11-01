@@ -3,6 +3,7 @@ import joblib
 import numpy as np
 import pandas as pd
 from pathlib import Path
+import streamlit as st
 
 
 
@@ -35,8 +36,8 @@ class IrisKeras():
 
         # Load the Keras model and scaler
         model = keras.models.load_model( self.root_dir / 'saved_models/iris_model.keras')
-        print(sep_len,sep_wid,pet_len,pet_wid)
-        print(model)
+        st.write(sep_len,sep_wid,pet_len,pet_wid)
+        st.write(model)
         scaler = joblib.load(self.root_dir / "saved_models/iris_keras_scaler.pkl")
 
         species = ["Iris-setosa","Iris-versicolor","Iris-virginica"]
