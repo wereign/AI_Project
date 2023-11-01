@@ -36,8 +36,10 @@ class IrisKeras():
 
         # Load the Keras model and scaler
         self.model = keras.models.load_model(self.root_dir / 'saved_models/iris_model_from_colab.keras')
-        st.write(sep_len,sep_wid,pet_len,pet_wid)
-        st.write(self.model)
+        
+        # st.write(sep_len,sep_wid,pet_len,pet_wid)
+        # st.write(self.model)
+        
         scaler = joblib.load(self.root_dir / "saved_models/iris_keras_scaler.pkl")
 
         species = ["Iris-setosa","Iris-versicolor","Iris-virginica"]
