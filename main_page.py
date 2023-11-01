@@ -17,7 +17,7 @@ from components.components import st_card,colored_headings
 root_dir = Path.cwd()
 models = {"cv":[MNISTPyTorch(root_dir),MNISTKeras(root_dir)],
           "tabular":[IrisKeras(root_dir),IrisPyTorch(root_dir)],
-        #   "gan":[GANPyTorch(root_dir)]
+          "gan":[GANPyTorch(root_dir)]
           }
 
 
@@ -55,15 +55,15 @@ def main_page():
             st_card(h3_content=h3_title,content=content,button_callback=set_model_page_id,button_args=[i,'tabular'])
 
 
-    # colored_headings("Generative Adversarial Models",heading_level=2,color="FF6AC2")
-    # cv_columns = st.columns(len(models['gan']))
+    colored_headings("Generative Adversarial Models",heading_level=2,color="FF6AC2")
+    cv_columns = st.columns(len(models['gan']))
 
-    # for i, col in enumerate(cv_columns):
-    #     with col:
-    #         model = models['gan'][i]
-    #         h3_title = model.model_name
-    #         content = model.short_description
-    #         st_card(h3_content=h3_title,content=content,button_callback=set_model_page_id,button_args=[i,'gan'])
+    for i, col in enumerate(cv_columns):
+        with col:
+            model = models['gan'][i]
+            h3_title = model.model_name
+            content = model.short_description
+            st_card(h3_content=h3_title,content=content,button_callback=set_model_page_id,button_args=[i,'gan'])
 
 def model_page(model_id,type):
 
@@ -88,13 +88,13 @@ def model_page(model_id,type):
     elif model_obj.type == "tabular":
         tabular_inference(model_obj.inference)
 
-    # elif model_obj.type == 'gan':
-    #     st.markdown("## Generate Images")
-    #     num_images = st.number_input(':orange[Number of Images to generate:]',min_value=1,max_value=80)
+    elif model_obj.type == 'gan':
+        st.markdown("## Generate Images")
+        num_images = st.number_input(':orange[Number of Images to generate:]',min_value=1,max_value=80)
         
-    #     all_images = model_obj.inference(num_images)
+        all_images = model_obj.inference(num_images)
 
-    #     st.image(all_images,clamp=True)
+        st.image(all_images,clamp=True)
 
 
 if not "page_mode" in st.session_state:
