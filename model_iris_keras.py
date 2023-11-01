@@ -30,7 +30,7 @@ class IrisKeras():
         """
         self.architecture = self.root_dir/ 'media/iris_keras.png'
         self.cometml_url = "https://www.comet.com/wereign/solar-detection-v2/view/EjM3aobkDhccBouofxikIQtrc/panels"
-        self.model = keras.models.load_model( self.root_dir / 'saved_models/iris_model.h5')
+        self.model = keras.models.load_model('./iris_model.keras')
 
 
     def inference(self,sep_len,sep_wid,pet_len,pet_wid):
