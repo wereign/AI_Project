@@ -23,7 +23,7 @@ class IrisKeras():
                 ### Training
                 Training is performed using a labeled dataset, where the model learns to classify Iris flowers into their respective species. The loss function used for optimization is typically categorical cross-entropy, and the model's weights are updated through backpropagation.
 
-                ### Evaluation
+                ### Evaluation  
                 To assess the model's performance, metrics like accuracy, precision, recall, and F1-score are computed on a separate test dataset. These metrics help measure the model's ability to accurately predict the Iris species.
 
                 This DNN model serves as a powerful tool for automating the classification of Iris flowers and is applicable in various fields, such as botany and horticulture.
